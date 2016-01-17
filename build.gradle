@@ -1,0 +1,50 @@
+apply plugin: 'java'
+apply plugin: 'eclipse'
+
+tasks.withType(JavaCompile) {
+   options.incremental = true
+   sourceCompatibility = '1.7'
+   targetCompatibility = '1.7'
+}
+
+repositories {
+   mavenCentral()
+}
+
+
+project.archivesBaseName = 'shiro-extension'
+project.version = '0.2.0'
+
+
+dependencies {
+   compile 'org.slf4j:slf4j-api:1.7.13'
+   compile 'com.mitchellbosecke:pebble:2.0.0'
+   compile 'org.apache.shiro:shiro-core:1.2.4'
+   
+   testCompile 'junit:junit:4.12'
+}
+
+
+task sourcesJar(type: Jar, dependsOn: classes) {
+   classifier = 'sources'
+   from sourceSets.main.allSource
+}
+
+task javadocJar(type: Jar, dependsOn: javadoc) {
+   classifier = 'javadoc'
+   from javadoc.destinationDir
+}
+
+artifacts {
+   archives sourcesJar
+   archives javadocJar
+}
+
+
+
+
+// Gradle wrapper task
+// Only used when in need to reinstall the wrapper
+task wrapper(type: Wrapper) {
+   gradleVersion = '2.10'
+}
