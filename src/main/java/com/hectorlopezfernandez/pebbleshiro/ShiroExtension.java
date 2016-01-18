@@ -23,8 +23,8 @@ public class ShiroExtension extends AbstractExtension {
     
     @Override
     public Map<String, Function> getFunctions() {
-    	Map<String, Function> functions = new HashMap<>(2);
-    	//functions.put("dateTime", dateTimeFunction);
+    	Map<String, Function> functions = new HashMap<>(1);
+    	functions.put("principal", new PrincipalFunction());
         return functions;
     }
 
