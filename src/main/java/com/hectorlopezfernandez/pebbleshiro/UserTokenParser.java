@@ -9,10 +9,10 @@ import com.mitchellbosecke.pebble.parser.Parser;
 import com.mitchellbosecke.pebble.parser.StoppingCondition;
 import com.mitchellbosecke.pebble.tokenParser.AbstractTokenParser;
 
-public class AuthenticatedTokenParser extends AbstractTokenParser {
+public class UserTokenParser extends AbstractTokenParser {
 	
-	private static final String TOKEN_START = "authenticated";
-	private static final String TOKEN_END = "endAuthenticated";
+	private static final String TOKEN_START = "isUser";
+	private static final String TOKEN_END = "endIsUser";
 
     @Override
     public RenderableNode parse(Token token, Parser parser) throws ParserException {
@@ -37,7 +37,7 @@ public class AuthenticatedTokenParser extends AbstractTokenParser {
         // end of end tag
         stream.expect(Token.Type.EXECUTE_END);
 
-        return new AuthenticatedNode(lineNumber, body);
+        return new UserNode(lineNumber, body);
     }
 
     @Override

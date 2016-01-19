@@ -12,22 +12,22 @@ import com.mitchellbosecke.pebble.node.BodyNode;
 import com.mitchellbosecke.pebble.template.EvaluationContext;
 import com.mitchellbosecke.pebble.template.PebbleTemplateImpl;
 
-public class AuthenticatedNode extends AbstractRenderableNode {
+public class GuestNode extends AbstractRenderableNode {
 
     private final BodyNode body;
 
-    public AuthenticatedNode(int lineNumber, BodyNode body) {
+    public GuestNode(int lineNumber, BodyNode body) {
         super(lineNumber);
         this.body = body;
     }
 
     @Override
     public void render(PebbleTemplateImpl self, Writer writer, EvaluationContext context) throws PebbleException, IOException {
-    	// check if authenticated
+    	// check if guest
     	Subject subject = ResolveUtils.resolveSubject();
-    	boolean authenticated = subject != null && subject.isAuthenticated();
-    	// render node if authenticated
-    	if (authenticated) body.render(self, writer, context);
+    	boolean guest = subject == null || subject.getPrincipal() == null;
+    	// render node if guest
+    	if (guest) body.render(self, writer, context);
     }
 
     @Override

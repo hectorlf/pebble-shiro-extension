@@ -12,11 +12,11 @@ import com.mitchellbosecke.pebble.node.BodyNode;
 import com.mitchellbosecke.pebble.template.EvaluationContext;
 import com.mitchellbosecke.pebble.template.PebbleTemplateImpl;
 
-public class AuthenticatedNode extends AbstractRenderableNode {
+public class NotAuthenticatedNode extends AbstractRenderableNode {
 
     private final BodyNode body;
 
-    public AuthenticatedNode(int lineNumber, BodyNode body) {
+    public NotAuthenticatedNode(int lineNumber, BodyNode body) {
         super(lineNumber);
         this.body = body;
     }
@@ -26,8 +26,8 @@ public class AuthenticatedNode extends AbstractRenderableNode {
     	// check if authenticated
     	Subject subject = ResolveUtils.resolveSubject();
     	boolean authenticated = subject != null && subject.isAuthenticated();
-    	// render node if authenticated
-    	if (authenticated) body.render(self, writer, context);
+    	// render node if not authenticated
+    	if (!authenticated) body.render(self, writer, context);
     }
 
     @Override

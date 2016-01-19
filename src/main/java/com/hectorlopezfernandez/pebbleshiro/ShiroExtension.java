@@ -30,8 +30,17 @@ public class ShiroExtension extends AbstractExtension {
 
     @Override
     public List<TokenParser> getTokenParsers() {
-        List<TokenParser> parsers = new ArrayList<>(6);
+        List<TokenParser> parsers = new ArrayList<>(10);
         parsers.add(new AuthenticatedTokenParser());
+        parsers.add(new GuestTokenParser());
+        parsers.add(new HasAllRolesTokenParser());
+        parsers.add(new HasAnyRolesTokenParser());
+        parsers.add(new HasPermissionTokenParser());
+        parsers.add(new HasRoleTokenParser());
+        parsers.add(new LacksPermissionTokenParser());
+        parsers.add(new LacksRoleTokenParser());
+        parsers.add(new NotAuthenticatedTokenParser());
+        parsers.add(new UserTokenParser());
         return parsers;
     }
 

@@ -5,14 +5,15 @@ import com.mitchellbosecke.pebble.lexer.Token;
 import com.mitchellbosecke.pebble.lexer.TokenStream;
 import com.mitchellbosecke.pebble.node.BodyNode;
 import com.mitchellbosecke.pebble.node.RenderableNode;
+import com.mitchellbosecke.pebble.node.expression.Expression;
 import com.mitchellbosecke.pebble.parser.Parser;
 import com.mitchellbosecke.pebble.parser.StoppingCondition;
 import com.mitchellbosecke.pebble.tokenParser.AbstractTokenParser;
 
-public class AuthenticatedTokenParser extends AbstractTokenParser {
+public class HasPermissionTokenParser extends AbstractTokenParser {
 	
-	private static final String TOKEN_START = "authenticated";
-	private static final String TOKEN_END = "endAuthenticated";
+	private static final String TOKEN_START = "hasPermission";
+	private static final String TOKEN_END = "endHasPermission";
 
     @Override
     public RenderableNode parse(Token token, Parser parser) throws ParserException {
@@ -21,6 +22,8 @@ public class AuthenticatedTokenParser extends AbstractTokenParser {
 
         // skip the start token
         stream.next();
+        // get the parameter expression
+        Expression<?> value = parser.getExpressionParser().parseExpression();
         // end of start tag
         stream.expect(Token.Type.EXECUTE_END);
         
@@ -37,7 +40,7 @@ public class AuthenticatedTokenParser extends AbstractTokenParser {
         // end of end tag
         stream.expect(Token.Type.EXECUTE_END);
 
-        return new AuthenticatedNode(lineNumber, body);
+        return new HasPermissionNode(lineNumber, value, body);
     }
 
     @Override
