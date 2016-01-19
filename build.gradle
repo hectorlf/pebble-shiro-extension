@@ -13,7 +13,7 @@ repositories {
 
 
 project.archivesBaseName = 'shiro-extension'
-project.version = '0.2.0'
+project.version = '1.0.0'
 
 
 dependencies {
